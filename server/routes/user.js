@@ -1,16 +1,17 @@
-// const router = require('express').Router();
+const router = require('express').Router();
 
-// const auth = require('../middleware/auth');
-// const { admin, user } = require('../middleware/role');
+const auth = require('../middleware/auth');
+const { admin, user } = require('../middleware/role');
+const { registerValidation } = require('../middleware/validation');
 
-// router.get('/', [auth, user], (req, res) => {
+router.get('/', [auth, user], (req, res) => {
 
-//     res.send({user: req.user })
-// });
+    res.send({user: req.user })
+});
 
-// router.get('/admin', [auth, admin], (req, res) => {
-//     res.send("Hello admin")
-// });
+router.post('/newadmin', [auth, admin, registerValidation], (req, res) => {
+    
+});
 
 
-//module.exports = router;
+module.exports = router;

@@ -3,15 +3,15 @@ const Joi = require("Joi");
 function validMovie(req, res, next) {
     
     const schema = new Joi.object({
-        name: Joi.string().min(2).required(),
+        name: Joi.string().trim().min(2).required(),
         year: Joi.number().min(1950).max(new Date().getFullYear()).required(),
         duration: Joi.number().min(1),
         country: Joi.array(),
-        description: Joi.string().min(10),
-        cover_link: Joi.string(),
-        source_link: Joi.string().required(),
-        imdb_link: Joi.string(),
-        trailer_link: Joi.string(),
+        description: Joi.string().trim().min(10),
+        cover_link: Joi.string().trim(),
+        source_link: Joi.string().trim().required(),
+        imdb_link: Joi.string().trim(),
+        trailer_link: Joi.string().trim(),
         genre: Joi.array()
     });
 
@@ -34,8 +34,8 @@ function valId(req, res, next) {
 
 function loginValidation(req, res, next) {
     const schema = Joi.object({
-        username: Joi.string().min(5).required(),
-        password: Joi.string().min(8).required()
+        username: Joi.string().trim().min(5).required(),
+        password: Joi.string().trim().min(8).required()
     });
 
     const {error} = schema.validate(req.body);
@@ -48,10 +48,23 @@ function loginValidation(req, res, next) {
 
 function registerValidation(req, res, next) {
     const schema = Joi.object({
-        username: Joi.string().min(5).required(),
-        fullname: Joi.string().min(6).required(),
-        email: Joi.string().min(6).required().email(),
+        username: Joi.string().trim().min(5).required(),
+        fullname: Joi.string().trim().min(6).required(),
+        email: Joi.string().trim().min(6).required().email(),
         password: Joi.string().min(8).required()
+    });
+
+    const {error} = schema.validate(req.body);
+
+    if(error) 
+        return res.status(400).send({ success: false, error: error.details[0].message });
+
+    next();
+}
+
+function validGenre(req, res, next) {
+    const schema = Joi.object({
+        name: Joi.string().trim().min(4).required()
     });
 
     const {error} = schema.validate(req.body);
@@ -64,5 +77,6 @@ function registerValidation(req, res, next) {
 
 module.exports.validMovie =  validMovie;
 module.exports.valId = valId;
+module.exports.validGenre = validGenre;
 module.exports.loginValidation = loginValidation;
 module.exports.registerValidation = registerValidation;

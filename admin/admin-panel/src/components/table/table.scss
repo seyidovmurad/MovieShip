@@ -1,0 +1,16 @@
+
+.table {
+
+    .cellWrapper {
+        display: flex;
+        align-items: center;
+
+        .image {
+            width: 32px;
+            height: 32px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+    }
+}
