@@ -9,6 +9,8 @@ const GenreController = require('../controller/gerne.controller');
 const Genre = require('../models/genre.model');
 router.get('/', GenreController.getAll);
 
+router.get('/:id', [valId], GenreController.getById);
+
 router.post('/', [auth, admin, validGenre], GenreController.addGenre);
 
 router.put('/:id', [auth, admin, valId, validGenre], GenreController.updateById);

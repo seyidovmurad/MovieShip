@@ -14,7 +14,7 @@ router.post('/login', loginValidation, async (req, res) => {
         return res.status(403)
                   .send({ success: false, error: "Wrong username of password" });
 
-
+    console.log(req.body);
     //compare password
     const passCorrect = await bcrypt.compare(req.body.password, user.password);
     if(!passCorrect)
@@ -27,7 +27,13 @@ router.post('/login', loginValidation, async (req, res) => {
         role: user.role
     }, process.env.TOKEN_KEY, {expiresIn: "15m"});
 
-    res.send({success: true, token: token });
+    const send = {
+        token,
+        username: user.username,
+        email: user.email,
+        fName: user.fullname
+    }
+    res.send({success: true, user: send });
 });
 
 

@@ -1,6 +1,8 @@
 import './sidebar.scss';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonIcon from '@mui/icons-material/Person';
+import MovieIcon from '@mui/icons-material/Movie';
+import CategoryIcon from '@mui/icons-material/Category';
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined';
@@ -10,9 +12,11 @@ import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import {Link} from 'react-router-dom';
 import { useContext } from 'react';
 import { DarkModeContext } from '../../context/darkModeContext';
+import { AuthContext } from '../../context/authContext';
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
+  const { dispatch:ds } = useContext(AuthContext);
 
   return (
     <div className='sidebar'>
@@ -32,16 +36,22 @@ const Sidebar = () => {
                     </li>
                 </Link >
                 <p className="title">List</p>
-                <Link to="/users" style={{textDecoration: "none"}}>
+                <Link to="/user" style={{textDecoration: "none"}}>
                     <li>
                         <PersonIcon className="icon" />
                         <span>Users</span>
                     </li>
                 </Link>
-                <Link to="/products" style={{textDecoration: "none"}}>
+                <Link to="/movie" style={{textDecoration: "none"}}>
                     <li>
-                        <Inventory2OutlinedIcon className="icon" />
-                        <span>Products</span>
+                        <MovieIcon className="icon" />
+                        <span>Movies</span>
+                    </li>
+                </Link>
+                <Link to="/genre" style={{textDecoration: "none"}}>
+                    <li>
+                        <CategoryIcon className="icon" />
+                        <span>Genres</span>
                     </li>
                 </Link>
                 {/* <li>
@@ -85,7 +95,7 @@ const Sidebar = () => {
                 <Link to="/" style={{textDecoration: "none"}}>
                     <li>
                         <LoginOutlinedIcon className="icon" />
-                        <span>Log out</span>
+                        <span onClick={() => ds({type: "LOGOUT"})}>Log out</span>
                     </li>
                 </Link>
             </ul>

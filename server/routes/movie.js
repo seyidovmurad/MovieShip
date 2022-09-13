@@ -5,7 +5,9 @@ const { validMovie, valId } = require('../middleware/validation');
 
 const MovieController = require('../controller/movie.controller');
 
-router.get('/page/:page', MovieController.getAll);
+router.get('/', MovieController.getAll);
+
+router.get('/page/:page', MovieController.getAllByPage);
 
 router.get('/:id', valId, MovieController.getById);
 

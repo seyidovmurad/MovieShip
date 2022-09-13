@@ -4,6 +4,23 @@ const { formatMovie } = require('../helpers/format-params');
 
 
 exports.getAll = async(req, res) => {
+    
+
+    try {
+        let movies = await Movie.find().select("name year duration country cover_link genre").populate('genre', 'name');
+
+        if(!movies || movies.length == 0) 
+            return res.status(404).send({ success: false, error: "Movie not found" });
+        
+        res.send({ success: true, list: movies });
+    }
+    catch(error) {
+        res.status(500).send({ success: false, error: error.message });
+    }
+
+}
+
+exports.getAllByPage = async(req, res) => {
     const page = req.params.page;
     
     if(isNaN(page) || page <= 0)
@@ -19,7 +36,7 @@ exports.getAll = async(req, res) => {
         if(!movies || movies.length == 0) 
             return res.status(404).send({ success: false, error: "Movie not found" });
         
-        res.send({ success: true, movies });
+        res.send({ success: true, list: movies });
     }
     catch(error) {
         res.status(500).send({ success: false, error: error.message });
@@ -35,7 +52,7 @@ exports.getById = async (req, res) => {
         if(!movie) 
             return res.status(404).send({ success: false, error: "Movie not found" });
         
-        res.send({ success: true, movie });
+        res.send({ success: true, doc: movie });
     }
     catch (error) {
          res.status(500).send({ success: false, error: error.message, test: "bu nede" });
