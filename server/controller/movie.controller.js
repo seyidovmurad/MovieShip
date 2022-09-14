@@ -12,7 +12,8 @@ exports.getAll = async(req, res) => {
         if(!movies || movies.length == 0) 
             return res.status(404).send({ success: false, error: "Movie not found" });
         
-        res.send({ success: true, list: movies });
+    
+        res.send(movies); 
     }
     catch(error) {
         res.status(500).send({ success: false, error: error.message });
@@ -52,7 +53,7 @@ exports.getById = async (req, res) => {
         if(!movie) 
             return res.status(404).send({ success: false, error: "Movie not found" });
         
-        res.send({ success: true, doc: movie });
+        res.send(movie);
     }
     catch (error) {
          res.status(500).send({ success: false, error: error.message, test: "bu nede" });
@@ -61,6 +62,7 @@ exports.getById = async (req, res) => {
 
 exports.deleteById = async (req, res) => { 
     const id = req.params.id;
+    console.log(id);
     try {
         const exist = await Movie.findOneAndDelete({ _id: id });
         

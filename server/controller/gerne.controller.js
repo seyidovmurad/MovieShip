@@ -7,7 +7,7 @@ exports.getAll = async (req, res) => {
         if(!genres || genres.length == 0) 
             return res.status(404).send({ success: false, error: "Genre not found" });
     
-        res.send({ success: true, list: genres });
+        res.send(genres);
     }
     catch(error) {
         res.status(500).send({ success: false, error: error.message });
@@ -22,7 +22,7 @@ exports.getById = async (req, res) => {
         if(!genre || genre.length == 0) 
             return res.status(404).send({ success: false, error: "Genre not found" });
     
-        res.send({ success: true, doc: genre });
+        res.send(genre);
     }
     catch(error) {
         res.status(500).send({ success: false, error: error.message });

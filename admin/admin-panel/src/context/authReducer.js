@@ -6,6 +6,7 @@ const AuthReducer = (state, action) => {
         };
       }
       case "LOGOUT": {
+        window.localStorage.removeItem("user");
         return {
           currentUser: null,
         };
