@@ -68,25 +68,25 @@ const InputSource = ({input, handleInput, value}) => {
   }, [setOpt,  input])
   let element;
   switch(input.element) {
-    case "input": { 
+    case "input": 
        element = <input 
                 id={input.id} 
                 type={input.type} 
                 value={value}
                 placeholder={input.placeholder}
                 onChange={handleInput} />
-      }
+      
       break;
-    case "textarea": {
+    case "textarea":
       element = <textarea
                     id={input.id} 
                     value={value}
                     placeholder={input.placeholder}
                     onChange={handleInput} 
                   ></textarea>
-    }
+    
     break;
-    case "select": {
+    case "select": 
       if(Array.isArray(value))
       element = <Select
           defaultValue={value.map(v => ({value: v.name, label: v.name}))}
@@ -103,7 +103,6 @@ const InputSource = ({input, handleInput, value}) => {
           className="basic-multi-select"
           classNamePrefix="select"
       />
-    }
     break;
     default: element = <input type="text" />
   }

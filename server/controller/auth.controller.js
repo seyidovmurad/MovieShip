@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const router = require('express').Router();
 const bcrypt = require('bcrypt');
 
 const User = require('../models/user.model');
@@ -34,36 +33,64 @@ exports.userLogin = async (req, res) => {
 }
 
 exports.adminLogin = async (req, res) => {
-  
-    //find user
-    const user = await User.findOne({ username: req.body.username })
-    if(!user) 
-        return res.status(403)
-                  .send({ success: false, error: "Wrong Username or Password" });
+    const cookies = req.cookies;
 
+    //find user
+    const user = await User.findOne({ username: req.body.username.trim() })
+    if(!user) 
+        return res.status(401).send({ message: "Wrong Username or Password" });//Unauthorized
    
     //compare password
-    const passCorrect = await bcrypt.compare(req.body.password, user.password);
-    if(!passCorrect)
-        return res.status(403)
-                  .send({ success: false, error: "Wrong Username or Password" });
+    const match = await bcrypt.compare(req.body.password, user.password);
+    if(match) {
+        const accessToken = jwt.sign(
+            {
+                UserInfo: {
+                username: user.username,
+                role: user.roles
+                },
+            },
+            process.env.TOKEN_KEY,
+            { expiresIn: "30m" }
+        );
 
-    if(user.role != "admin")
-        return res.status(403)
-                  .send({ success: false, error: "Access Denied" });
-    
-    const token = jwt.sign({
-        id: user._id,
-        role: user.role
-    }, process.env.TOKEN_KEY, {expiresIn: "15m"});
+        const newRefreshToken = jwt.sign(
+            { "username": user.username },
+            process.env.REFRESH_TOKEN_KEY,
+            { expiresIn: "30d" }
+        );
 
-    const send = {
-        token,
-        username: user.username,
-        email: user.email,
-        fName: user.fullname
+        let newRefreshTokenArray =
+            !cookies?.jwt
+                ? user.refreshToken
+                : user.refreshToken.filter(rt => rt !== cookies.jwt);
+        
+        if (cookies?.jwt) {
+            const refreshToken = cookies.jwt;
+            const foundToken = await User.findOne({ refreshToken }).exec();
+
+            // Detected refresh token reuse!
+            if (!foundToken) {
+                // clear out ALL previous refresh tokens
+                newRefreshTokenArray = [];
+            }
+
+            res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+        }
+ 
+        // Saving refreshToken with current user
+        user.refreshToken = [...newRefreshTokenArray, newRefreshToken];
+        const result = await user.save();
+
+        // Creates Secure Cookie with refresh token
+        res.cookie('jwt', newRefreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 * 15 });
+
+        // Send authorization roles and access token to user
+        res.send({ accessToken, user: { username: user.username, role: user.role, email: user.email } });
+
+    } else {
+        res.sendStatus(401);
     }
-    res.send({success: true, user: send });
 }
 
 exports.userRegister = async (req, res) => {
@@ -106,7 +133,7 @@ exports.userRegister = async (req, res) => {
 
 
 exports.adminRegister = async (req, res) => {
-
+    
     //check user email and username exist
     const emailExist = await User.findOne({ email: req.body.email }); 
     

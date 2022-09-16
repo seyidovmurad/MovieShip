@@ -3,11 +3,11 @@ const { loginValidation, registerValidation } = require('../middleware/validatio
 
 const AuthController = require('../controller/auth.controller');
 
-router.post('/login', loginValidation, AuthController.userLogin);
+//router.post('/login', loginValidation, AuthController.userLogin);
 
 router.post('/register', registerValidation, AuthController.userRegister);
 
-router.post('/admin/login', loginValidation, AuthController.adminLogin);
+router.post('/login', loginValidation, AuthController.adminLogin);
 
 router.post('/admin/register', registerValidation, AuthController.adminRegister);
 

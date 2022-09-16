@@ -3,20 +3,18 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonIcon from '@mui/icons-material/Person';
 import MovieIcon from '@mui/icons-material/Movie';
 import CategoryIcon from '@mui/icons-material/Category';
-import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import {Link} from 'react-router-dom';
-import { useContext } from 'react';
-import { DarkModeContext } from '../../context/darkModeContext';
-import { AuthContext } from '../../context/authContext';
+import { changeMode } from '../../features/darkMode/darkModeSlice';
+import { useDispatch } from 'react-redux';
 
 const Sidebar = () => {
-  const { dispatch } = useContext(DarkModeContext);
-  const { dispatch:ds } = useContext(AuthContext);
+  
+  const dispatch = useDispatch();
 
   return (
     <div className='sidebar'>
@@ -95,14 +93,14 @@ const Sidebar = () => {
                 <Link to="/" style={{textDecoration: "none"}}>
                     <li>
                         <LoginOutlinedIcon className="icon" />
-                        <span onClick={() => ds({type: "LOGOUT"})}>Log out</span>
+                        <span >Log out</span>
                     </li>
                 </Link>
             </ul>
         </div>
         <div className="bottom">
-            <div className="colorOption" onClick={() => dispatch({type: "LIGHT"})}></div>
-            <div className="colorOption" onClick={() => dispatch({type: "DARK"})}></div>
+            <div className="colorOption" onClick={() => dispatch(changeMode(false))}></div>
+            <div className="colorOption" onClick={() => dispatch(changeMode(true))}></div>
         </div>
     </div>
   )
