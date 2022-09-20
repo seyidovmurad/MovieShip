@@ -6,14 +6,14 @@ export const movieTable = [
       headerName: "Title",
       width: 230,
       autoHeight: true,
-      // renderCell: (params) => {
-      //   return (
-      //     <div className="cellWithImg">
-      //       <img className="cellImg" src={params.row.cover_link} alt="avatar" />
-      //       {params.row.name}
-      //     </div>
-      //   );
-      // },
+      renderCell: (params) => {
+        return (
+          <div className="cellWithImg">
+            <img className="cellImg" src={params.row.cover_link} alt="avatar" />
+            {params.row.name}
+          </div>
+        );
+      },
     },
     {
       field: "year",

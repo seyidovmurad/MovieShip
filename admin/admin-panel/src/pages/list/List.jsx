@@ -11,7 +11,7 @@ const List = ({table, title}) => {
       <div className="listContainer">
         <Navbar />
         {
-          <Datatable  table={table} title={title} rows={[]}/>
+          <Datatable  table={table} title={title} />
         }
         {/* <Datatable  table={table} rows={data.list}/> */} 
       </div>

@@ -6,6 +6,7 @@
       label: "Movie Title",
       type: "text",
       placeholder: "The Dark Knight",
+      error: "Name cannot be empty."
     },
     {
       id: "year",
@@ -20,12 +21,6 @@
       label: "Duration",
       type: "number",
       placeholder: "180"
-    },
-    {
-      id: "description",
-      element: "textarea",
-      label: "Description",
-      placeholder: "Movie description..."
     },
     {
       id: "country",
@@ -61,7 +56,13 @@
       multiple: true,
       label: "Genres",
       type: "table",
-    }
+    },
+    {
+      id: "description",
+      element: "textarea",
+      label: "Description",
+      placeholder: "Movie description..."
+    },
   ];
   
 
@@ -72,6 +73,9 @@
       label: "Genre Name",
       type: "text",
       placeholder: "Action",
+      pattern: "/^([a-zA-Z]){3,15}$/",
+      error: "Name should be 3-15 characters and should not inclue special character and number"
     },
   ];
   
+

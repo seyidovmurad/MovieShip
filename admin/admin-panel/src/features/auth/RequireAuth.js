@@ -6,12 +6,9 @@ import { selectCurrentToken, selectCurrentUser } from "./authSlice"
 const RequireAuth = () => {
     const user = useSelector(selectCurrentUser);
     const token = useSelector(selectCurrentToken);
-
     const location = useLocation();
-    console.log(token);
-    console.log(user); 
     return (
-        (token && user?.role ) ? 
+        (token && user?.role === "admin") ? 
             <Outlet /> : 
             <Navigate to="/login" state={{from: location}} replace />
     )

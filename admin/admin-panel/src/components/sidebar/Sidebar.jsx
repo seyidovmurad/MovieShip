@@ -11,6 +11,7 @@ import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import {Link} from 'react-router-dom';
 import { changeMode } from '../../features/darkMode/darkModeSlice';
 import { useDispatch } from 'react-redux';
+import { logOut } from '../../features/auth/authSlice';
 
 const Sidebar = () => {
   
@@ -90,7 +91,7 @@ const Sidebar = () => {
                         <span>Profile</span>
                     </li>
                 </Link>
-                <Link to="/" style={{textDecoration: "none"}}>
+                <Link to="/" onClick={() => dispatch(logOut())} style={{textDecoration: "none"}}>
                     <li>
                         <LoginOutlinedIcon className="icon" />
                         <span >Log out</span>

@@ -31,7 +31,6 @@ const Login = () => {
     e.preventDefault();
     try {
       let result = await login({username, password}).unwrap()
-      console.log(result);
       dispatch(setCredentials({...result}));
       setUser('');
       setPassword('');
@@ -44,7 +43,11 @@ const Login = () => {
       else if(err?.status === 400 )
         setError('Missing username or password');
       else if(err?.status === 401)
+        setError('Wrong username or password');
+      else if(err?.status === 403)
         setError('Access denied');
+      else if(err?.status === 502)
+        setError('Server internal error');
       else  
         setError("Something went wrong");
       errRef.current?.focus();

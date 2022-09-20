@@ -3,12 +3,8 @@ const { loginValidation, registerValidation } = require('../middleware/validatio
 
 const AuthController = require('../controller/auth.controller');
 
-//router.post('/login', loginValidation, AuthController.userLogin);
 
-router.post('/register', registerValidation, AuthController.userRegister);
+router.post('/login', loginValidation, AuthController.login);
 
-router.post('/login', loginValidation, AuthController.adminLogin);
-
-router.post('/admin/register', registerValidation, AuthController.adminRegister);
 
  module.exports = router;

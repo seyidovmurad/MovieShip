@@ -12,6 +12,7 @@ const app = express();
 
 const genreRoutes = require('./routes/genre');
 const authRoutes = require('./routes/auth');
+const refreshRoutes = require('./routes/refresh');
 const movieRoutes = require('./routes/movie');
 
 app.use(credentials);
@@ -22,6 +23,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/refresh', refreshRoutes);
 app.use('/api/genre', genreRoutes);
 app.use('/api/movie', movieRoutes);
 
