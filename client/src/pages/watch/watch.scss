@@ -1,13 +1,10 @@
 .watch {
     background: var(--background-color);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
     color: var(--white-color-m);
     .menu {
         display: flex;
-        flex-direction: column;
         .content {
+            width: 100%;
             padding: 50px 0;
             display: flex;
             justify-content: center;

@@ -1,14 +1,15 @@
 import "./navbar.scss"
 import { ArrowDropDown, Menu, Notifications, Person, Search } from "@mui/icons-material"
 import { useState } from "react"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggle } from "../../features/menu/menuSlice";
-
+import { Link } from "react-router-dom";
+import { selectCurrentUser, logOut } from "../../features/auth/authSlice";
 
 const Navbar = () => {
-    const [login, setLogin] = useState(false);
+    const user = useSelector(selectCurrentUser);
     const dispatch = useDispatch();
-
+    
     return (
         <div className="navbar">
             <div className="container">
@@ -22,7 +23,7 @@ const Navbar = () => {
                         <Search className="icon" />
                     </div>
                     {
-                        login ? 
+                        user ? 
                         <>
                             <Notifications className="icon" />
                             <div className="profile">
@@ -30,15 +31,15 @@ const Navbar = () => {
                                 <ArrowDropDown  />
                                 <div className="options">
                                     <span>Settings</span>
-                                    <span>Logout</span>
+                                    <span onClick={() => dispatch(logOut())}>Logout</span>
                                 </div>
                             </div>
                         </>
                         :
-                        <div className="login">
+                        <Link className="link loginItem" to="/login">
                             <Person />
                             Login
-                        </div>
+                        </Link>
                     }
                    
                 </div>

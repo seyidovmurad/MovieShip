@@ -2,16 +2,16 @@ import "./paginate.scss";
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
 const Paginate = ({ currentPage, lastPage, onChange}) => {
-    const sibling = 5; //can be changed
-    const itemCount = sibling + 3;
+    const sibling = lastPage > 5 ? 5 : lastPage; //can be changed
+    const itemCount = sibling + (lastPage > 5 ? 3 : 0);
     const pageArray = Array(itemCount).fill().map((_, index) => {
         if(index === 0)
             return 1;
-        if(index === itemCount - 2 && currentPage < lastPage - Math.floor(sibling/2) )
+        if(index === itemCount - 2 && currentPage < lastPage - Math.floor(sibling/2) && lastPage !== sibling )
             return "...";
         if(index === itemCount - 1)
             return lastPage;
-        if(currentPage > Math.ceil(sibling/2)) {
+        if(currentPage > Math.ceil(sibling/2) && lastPage !== sibling) {
             if(index === 1)
                 return "..."
             if(currentPage >= lastPage - Math.ceil(sibling/2) - 1) 

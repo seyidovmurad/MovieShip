@@ -27,7 +27,7 @@ exports.getAllByPage = async(req, res) => {
     if(isNaN(page) || page <= 0)
         return res.status(400).send({ message: "Page not found" });
 
-    const limit = 10//24;
+    const limit = 24;
     const skip = limit * (page - 1);
 
     try {

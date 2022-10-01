@@ -13,7 +13,7 @@ const Cart = ({ doc }) => {
             <img src={doc.cover_link} alt="" />
         </div>
       <div className="bottom">
-        <h3>{doc.name}</h3>
+        <h3>{doc.name.slice(0, 23)}{doc.name.length > 23 && "..." }</h3>
         <div className="cartInfo">
             <span className="quality">HD</span>
             <span>{doc.year}</span>

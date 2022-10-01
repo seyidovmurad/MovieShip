@@ -38,7 +38,7 @@ const New = ({inputs, title}) => {
         console.log(err);
         setError(err?.data?.message ?? "Check all inputs");
       }
-    }
+    } 
     else {
       console.log("err");
       setError("Fill all inputs")

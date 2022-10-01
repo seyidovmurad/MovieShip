@@ -1,6 +1,7 @@
 import { HomeOutlined, MovieCreation, Rocket, Search, Tv } from "@mui/icons-material"
 import { useSelector } from "react-redux"
 import { selectDisplay } from "../../features/menu/menuSlice"
+import { Link } from "react-router-dom"
 import "./sidebar.scss"
 
 const Sidebar = () => {
@@ -15,7 +16,7 @@ const Sidebar = () => {
         <ul>
             <li>
                 <HomeOutlined className="icon"/>
-                <span>Home</span>
+                <Link className="link" to="/"><span>Home</span></Link>
             </li>
             <li>
                 <Rocket className="icon" />

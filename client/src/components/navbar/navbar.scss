@@ -38,7 +38,7 @@
             align-items: center;
 
 
-            .login {
+            .loginItem {
                 display: flex;
                 align-items: center;
                 margin-left: 20px;
@@ -96,7 +96,7 @@
 @media only screen and (min-width: 1024px) {
 
     .navbar {
-        
+        position: sticky;
         .container {
             padding: 25px 40px;
             .left {

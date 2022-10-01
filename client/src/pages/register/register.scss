@@ -1,4 +1,4 @@
-.login {
+.register {
     width: 100vw;
     height: 100vh;
     background: var(--background-color);
@@ -76,7 +76,7 @@
 
 @media only screen and (min-width: 768px) { 
 
-    .login {
+    .register {
         .content {
             form {
                 width: 500px;

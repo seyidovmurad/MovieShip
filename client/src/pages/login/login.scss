@@ -1,86 +1,86 @@
-// .login {
-//     width: 100vw;
-//     height: 100vh;
-//     background: var(--background-color);
-//     position: relative;
-//     .top {
-//         .wrapper {
-//             padding: 20px 50px;
-//             display: flex;
-//             align-items: center;
-//             justify-content: space-between;
-//             background: var(--main-color);
-//             img {
-//                 height: 40px;
-//             }
+.login {
+    width: 100vw;
+    height: 100vh;
+    background: var(--background-color);
+    position: relative;
+    .top {
+        .wrapper {
+            padding: 20px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--main-color);
+            img {
+                height: 40px;
+            }
 
-//         }
-//     }
+        }
+    }
 
-//     .container {
-//         width: 100%;
-//         height: 100%;
-//         position: absolute;
-//         display: flex;
-//         flex-direction: column;
-//         align-items: center;
-//         justify-content: center;
-//         color: #fff;
-//         top: 0;
-//         left: 0;
+    .content {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        top: 0;
+        left: 0;
 
-//         form {
-//             width: 100%;
-//             padding: 30px;
-//             border-radius: 3px;
-//             display: flex;
-//             flex-direction: column;
-//             justify-content: space-around;
+        form {
+            width: 100%;
+            padding: 30px;
+            border-radius: 3px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
 
-//             h1 {
-//                 padding: 20px 0;
-//             }
-//             input {
-//                 height: 40px;
-//                 border-radius: 5px;
-//                 background-color: rgb(71, 71, 71);
-//                 color: #fff;
-//                 padding-left: 10px;
-//                 border: none;
-//                 outline: none;
-//                 margin-bottom: 20px;
+            h1 {
+                padding: 20px 0;
+            }
+            input {
+                height: 40px;
+                border-radius: 5px;
+                background-color: rgb(71, 71, 71);
+                color: #fff;
+                padding-left: 10px;
+                border: none;
+                outline: none;
+                margin-bottom: 20px;
 
-//                 &::placeholder {
-//                     color: lightgray
-//                 }
-//             }
+                &::placeholder {
+                    color: lightgray
+                }
+            }
 
-//             button {
-//                 height: 40px;
-//                 background-color: red;
-//                 color: #fff;
-//                 border: none;
-//                 font-size: 18px;
-//                 font-weight: 500;
-//                 margin-bottom: 10px;
-//                 cursor: pointer;
+            button {
+                height: 40px;
+                background-color: red;
+                color: #fff;
+                border: none;
+                font-size: 18px;
+                font-weight: 500;
+                margin-bottom: 10px;
+                cursor: pointer;
 
-//             }
-//         }
-//         span {
-//             color: lightgray;
-//         }
-//         b { color: #fff; cursor: pointer;}
-//     }
-// }
+            }
+        }
+        span {
+            color: lightgray;
+        }
+        b { color: #fff; cursor: pointer;}
+    }
+}
 
-// @media only screen and (min-width: 768px) { 
+@media only screen and (min-width: 768px) { 
 
-//     .login {
-//         .container {
-//             form {
-//                 width: 500px;
-//             }
-//         }
-//     }
-// }
+    .login {
+        .content {
+            form {
+                width: 500px;
+            }
+        }
+    }
+}

@@ -4,7 +4,7 @@ import { FilterAlt } from '@mui/icons-material';
 import Paginate from '../paginate/Paginate';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 const List = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,12 +17,12 @@ const List = () => {
         setDoc(res.data.movies);
         setLastPage(res.data.totalPage);
       })
-      console.log(docs)
-  }, [currentPage, docs])
+  }, [currentPage])
+
   const onPageChange = (page) => {
-    navigate(`/home/?page=${page}`)
     setCurrentPage(page)
   }
+  
   return (
     <div className="list">
       <div className="head">
