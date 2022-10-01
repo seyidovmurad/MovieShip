@@ -11,7 +11,7 @@ router.get('/page/:page', MovieController.getAllByPage);
 
 router.get('/:id', valId, MovieController.getById);
 
-router.delete('/:id', [auth, admin, valId ], MovieController.deleteById);
+router.delete('/:id', [ valId ], MovieController.deleteById);
 
 router.put('/:id', [ valId, validMovie], MovieController.updateById);
 

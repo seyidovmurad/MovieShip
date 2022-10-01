@@ -1,0 +1,45 @@
+.paginate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    ul {
+        padding: 0;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        li {
+            border: 1px solid var(--white-color-d);
+            padding: 7px;
+            min-width: 30px;
+            color: var(--white-color-d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2px;
+            cursor: pointer;
+
+            &.active {
+                background: ghostwhite;
+                color: var(--main-color);
+            }
+
+            .icon {
+                font-size: 19px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .paginate {
+        
+        ul {
+            li {
+                padding: 10px;
+                min-width: 40px;
+            }
+        }
+    }
+}

@@ -51,7 +51,7 @@ const List = () => {
                 <TableCell className="tableCell" align="right">{row.calories}</TableCell>
                 <TableCell className="tableCell" align="right">
                     <div className="cellWrapper">
-                        <img src="https://www.foodiesfeed.com/wp-content/uploads/2021/01/hot-shakshuka-819x1024.jpg" alt="image" className="image"/>
+                        <img src="https://www.foodiesfeed.com/wp-content/uploads/2021/01/hot-shakshuka-819x1024.jpg" alt="tablefakephoto" className="image"/>
                         {row.fat}
                     </div>
                 </TableCell>

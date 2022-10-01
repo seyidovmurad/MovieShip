@@ -1,17 +1,15 @@
 
 function admin(req, res, next) {
-    if(req.user.role != "admin") return res.status(403).send({
-        success: false,
-        error: "Access denied."
+    if(req.user.UserInfo.role != "admin") return res.status(403).send({
+        message: "Access denied."
     });
 
     next();
 }
 
 function user(req, res, next) {
-    if(req.user.role != "user") return res.status(403).send({
-        success: false,
-        error: "Access denied."
+    if(req.user.UserInfo.role != "user") return res.status(403).send({
+        message: "Access denied."
     });
 
     next();

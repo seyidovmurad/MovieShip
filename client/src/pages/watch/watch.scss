@@ -1,0 +1,146 @@
+.watch {
+    background: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: var(--white-color-m);
+    .menu {
+        display: flex;
+        flex-direction: column;
+        .content {
+            padding: 50px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            .video {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                iframe {
+                    width: 80%;
+                    height: 30vh;
+                    object-fit: cover;
+                }
+            }
+
+            .contentInfo {
+                display: flex;
+                flex-direction: column-reverse;
+                width: 80%;
+                margin: 30px 0;
+                .poster {
+                    
+                    img {
+                        display: none;
+                    }
+                }
+
+                .info {
+                    width: 100%;
+                    h2 {
+                        font-size: 26px;
+                        font-weight: 500;
+                        padding: 10px;
+                        padding-left: 0;
+                    }
+
+                    .infoBtns {
+                        display: flex;
+                        button {
+                            margin: 10px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            border: none;
+                            border-radius: 5px;
+                            padding: 5px 10px;
+                            margin-left: 0;
+                            
+                            
+                            &:nth-child(2) {
+                                background: #ffc107;
+                                &:hover {
+                                    background-color: #deaa0e;
+                                }
+                            }
+
+                            &:hover {
+                                background-color: var(--white-color-d);
+                            }
+                            span {
+                                margin-left: 5px;
+                            }
+                        }
+                    }
+                    
+                    .body {
+
+                        p {
+                            color: var(--white-color-d);
+                            padding: 7px 0;
+                            letter-spacing: 1px;
+                            span {
+                                font-weight: bold;
+                                color: var(--white-color-l);
+                            }
+                        }
+                    }
+                }
+
+                .actions {
+                    display: flex;
+                    justify-content: center;
+                    button {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 100%;
+                        border: none;
+                        border-radius: 5px;
+
+                        &:hover {
+                            background-color: var(--white-color-d);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media only screen and (min-width: 1024px) {
+    .watch {
+        .menu {
+            .content {
+                .video {
+                    iframe {
+                        height: 50vh;
+                    }
+                }
+            
+                .contentInfo {
+                    flex-direction: row;
+                    .poster {
+                        margin-right: 20px;
+                        img {
+                            display: block;
+                            width: 200px;
+                            height: 300px;
+                            object-fit: cover;
+                        }
+                    }
+   
+                    .actions {
+                        display: block;
+                        width: 300px;
+                        button {
+                            margin: 10px 0;
+                        }
+                    }   
+                }
+            }
+        }
+    } 
+}

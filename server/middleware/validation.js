@@ -6,7 +6,7 @@ function validMovie(req, res, next) {
         name: Joi.string().trim().min(2).required(),
         year: Joi.number().min(1950).max(new Date().getFullYear()).required(),
         duration: Joi.number().min(1),
-        country: Joi.array(),
+        country: Joi.string(),
         description: Joi.string().trim().min(10),
         cover_link: Joi.string().trim(),
         source_link: Joi.string().trim().required(),
@@ -18,7 +18,7 @@ function validMovie(req, res, next) {
     const {error} = schema.validate(req.body);
 
     if(error) 
-        return res.status(400).send({ success: false, error: error.details[0].message });
+        return res.status(400).send({ message: error.details[0].message });
 
     next();
 
@@ -27,7 +27,7 @@ function validMovie(req, res, next) {
 function valId(req, res, next) {
     const id = req.params.id;
     if ( !id.match(/^[0-9a-fA-F]{24}$/) ) 
-        return res.status(400).send({success: false, error: "Wrong id type"});
+        return res.status(400).send({ message: "Wrong id type"});
 
     next();
 }
@@ -70,7 +70,7 @@ function validGenre(req, res, next) {
     const {error} = schema.validate(req.body);
 
     if(error) 
-        return res.status(400).send({ success: false, error: error.details[0].message });
+        return res.status(400).send({ message: error.details[0].message });
 
     next();
 }

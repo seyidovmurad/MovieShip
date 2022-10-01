@@ -1,64 +1,81 @@
 import './datatable.scss';
 import { DataGrid } from '@mui/x-data-grid';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import {instance} from '../../api/axios';
-import { useContext } from 'react';
-import { AuthContext } from '../../context/authContext';
+import { useDeleteTableMutation, useGetTableQuery } from '../../features/table/tableApiSlice';
 
 
 
-const Datatable = ({table, rows}) => {
+const Datatable = ({table, title}) => {
   const navigate = useNavigate();
-  const loc = useLocation();
-  const {currentUser} = useContext(AuthContext);
+  const path = useLocation().pathname;
 
-  const [list, setList] = useState([]);
+  const {
+    data: list,
+    isLoading,
+    isSuccess,
+    isError,
+    error
+  } = useGetTableQuery(path);
 
-  const onDelete = (id) => {
-    if(window.confirm("Do you want to delete this item")) {
+  const [deletTable, {isLoading: loading}] = useDeleteTableMutation();
 
-      instance.delete(`${loc.pathname}/${id}`, {headers: {"msh-auth-token": currentUser.token}}).then(() => {
-
-        setList(list.filter(l => l._id != id));
-      })
-      .catch(err => { 
-        alert(err);
-      });
-      
+  const onDelete = async(id) => {
+    if(window.confirm("Do you want to delete this item " + `${path}/${id}`)) {
+      try {
+        const result = await deletTable(`${path}/${id}`).unwrap();
+        alert(result.message)
+      }
+      catch(error) {
+        alert(error.message)
+      }
     }
   }
 
-  useEffect(() =>  {if(list.length == 0) setList(rows)})
- 
+  
+  
   const actionColumn = [{field: "action",type: 'actions', headerName: "Action",disableColumnSelector: true, width: 200, renderCell: (proms) => {
     
     return (
         <div className="cellAction">
-            <div className="viewBtn" onClick={() => navigate(`${loc.pathname }/${proms.row._id}`)}>View</div>
+            <div className="viewBtn" onClick={() => navigate(`${path }/${proms.row._id}`)}>View</div>
             <div className="deleteBtn" onClick={() => onDelete(proms.row._id)}>Delete</div>
         </div>
     )
   }}]
+  
+  let content;
+  if(isLoading || loading) {
+    content = <h1>Loading...</h1>
+  }
+  else if(isError) {
+    console.log(error);
+    content = <h1>{error}</h1>
+  }
+  else if(isSuccess) {
+    
+    content =  <DataGrid
+         key={path}
+         className="datagrid"
+         rows={list}
+         columns={table.concat(actionColumn)}
+         pageSize={10}
+         getRowId={(row) => row._id}
+         rowsPerPageOptions={[10]}
+        //  checkboxSelection
+     />
+    
+  }
+
 
   return (
     <div className="datatable">
       <div className="dbTitle">
-        Add New User
-        <Link to="/users/new" style={{textDecoration: "none"}} className="link">
+        {title}
+        <Link to={path + "/new"} style={{textDecoration: "none"}} className="link">
           Add New
         </Link>
       </div>
-         <DataGrid
-            className="datagrid"
-            rows={list}
-            columns={table.concat(actionColumn)}
-            pageSize={10}
-            getRowId={(row) => row._id}
-            rowsPerPageOptions={[10]}
-            checkboxSelection
-        />
+     {content}
     </div>
   )
 }

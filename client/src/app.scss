@@ -1,0 +1,25 @@
+* {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --main-color: #0b0b0b;
+    --background-color: #343a40;
+    --hover-color: #343232;
+    --white-color-d: #d0cece;
+    --white-color-m: #e7e6e6;
+    --white-color-l: #fff;
+
+    --red-color: red;
+  }
+
+  .link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .app {
+    position: relative;
+  }
