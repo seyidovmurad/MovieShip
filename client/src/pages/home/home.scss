@@ -1,0 +1,18 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    
+    .content {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .home {
+        
+        .content {
+            flex-direction: row;
+        }
+    }
+}

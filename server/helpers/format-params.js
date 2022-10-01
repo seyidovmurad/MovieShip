@@ -12,9 +12,8 @@ exports.formatMovie = (data) => {
         description: data.description.trim(),
         cover_link: data.cover_link.trim(),
         source_link: data.source_link.trim(),
-        imdb_link: data.imdb_link.trim(),
-        trailer_link: data.trailer_link.trim(),
-        genre: data.genre
+        //imdb_link: data.imdb_link.trim(),
+        trailer_link: data.trailer_link.trim()
     });
 
     return movie;

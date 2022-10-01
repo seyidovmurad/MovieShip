@@ -14,16 +14,21 @@ const New = ({inputs, title}) => {
   const table = loc.pathname.split('/')[1];
 
   const [error, setError] = useState([]);
+  const [multi, setMulti] = useState([]);
   const navigate = useNavigate();
 
   
   const [addDoc, {isLoading, isSuccess}] = useAddTableMutation();
 
+  const handleMultiSelect = (data) => {
+    setMulti(data.map(d => ({id: d.value })));
+  }
   
   const handleSubmit = async(e) => {
     e.preventDefault();
     const data = new FormData(e.target);
-    const entries = Object.fromEntries(data.entries());
+    const entries = {...Object.fromEntries(data.entries()), genre: multi };
+    console.log(multi)
     console.log(entries);
     if(Object.values(entries).filter(Boolean).length > 0) {
       try {
@@ -56,7 +61,7 @@ const New = ({inputs, title}) => {
                   {inputs.map((input, index) => (
                     <div className={input.element !== "textarea" ? "formInput" : "formTxt"} key={index}>
                       <label >{input.label}</label>
-                      <InputSource  input={input} handleInput={() => {}}  /> 
+                      <InputSource  input={input} multiSelect={handleMultiSelect}  value={multi}  /> 
                     </div>
                   ))}
                   <button disabled={isLoading} >Save</button>
@@ -79,8 +84,9 @@ function getDatesInRange(startDate) {
 
   return dates;
 }
-const InputSource = ({className, input, handleInput,  value}) => {
+const InputSource = ({className, input, multiSelect,  value}) => {
   const [opt, setOpt] = useState([]);
+
   useEffect(() => {
     if(input.type === "table") 
       axios.get(`http://localhost:5000/api/${input.id}`).then(res => {
@@ -103,29 +109,25 @@ const InputSource = ({className, input, handleInput,  value}) => {
                 name={input.id}
                 className={className}
                 type={input.type} 
-                value={value}
-                placeholder={input.placeholder}
-                onChange={handleInput} />
+                placeholder={input.placeholder}/>
       
       break;
     case "textarea":
       element = <textarea
                     id={input.id} 
-                    value={value}
+                    name={input.id}
                     placeholder={input.placeholder}
-                    onChange={handleInput} 
                   ></textarea>
     
     break;
     case "select": 
-      if(Array.isArray(value))
+      if(input.multiple)
       element = <Select
           id={input.id}
-          name={input.id}
-          defaultValue={value.map(v => ({value: v._id, label: v.name}))}
           isMulti={input.multiple}
-          closeMenuOnSelect={false}
           options={opt}
+          onChange={multiSelect}
+          defaultValue={value}
           className="basic-multi-select"
           classNamePrefix="select"
       />
@@ -133,7 +135,6 @@ const InputSource = ({className, input, handleInput,  value}) => {
       element = <Select
           id={input.id}
           name={input.id}
-          defaultInputValue={value}
           isMulti={input.multiple}
           options={opt}
           className="basic-multi-select"
